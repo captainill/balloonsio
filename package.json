@@ -2,7 +2,7 @@
     "name": "photungle"
   , "version": "0.0.1"
   , "dependencies": {
-      "node": "0.6.19"
+      "node": "0.6.18"
     , "express": "2.5.1"
     , "jade": ">= 0.0.1"
     , "socket.io": "0.9.6"
