@@ -8,7 +8,7 @@ var express = require('express')
   , easyoauth = require('easy-oauth')
   , redis = require('redis')
   , RedisStore = require('connect-redis')(express)
-  , config = require('./config.json')
+  , config = require('./config')
   , utils = require('./utils')
   , fs = require('fs');
 
@@ -56,15 +56,15 @@ var app = express.createServer();
 
 app.configure(function() {
   app.set('view engine', 'jade'); 
-  app.set('views', __dirname + '/views/themes/' + config.theme.name);
+  app.set('views', __dirname + '/views/themes/' + config.config.theme.name);
   app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.session({
-    secret: config.session.secret,
+    secret: config.config.session.secret,
     store: new RedisStore
   }));
-  app.use(easyoauth(config.auth));
+  app.use(easyoauth(config.config.auth));
   app.use(app.router);
 });
 
@@ -292,6 +292,6 @@ io.sockets.on('connection', function (socket) {
 });
 
 
-app.listen(process.env.PORT || config.app.port);
+app.listen(process.env.PORT || config.config.app.port);
 
 console.log('Balloons.io started at port %d', app.address().port);

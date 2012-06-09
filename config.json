@@ -1,4 +1,4 @@
-{
+exports.config = {
 	"auth": {
 		"twitter": {
 			"consumerkey" : "wovpSUMWpwLB2g9lKafxg",
