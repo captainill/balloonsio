@@ -8,8 +8,8 @@ var express = require('express')
   , easyoauth = require('easy-oauth')
   , redis = require('redis')
   , RedisStore = require('connect-redis')(express)
-  , config = require('./config')
   , utils = require('./utils')
+  , config = require('./config')
   , fs = require('fs');
 
 
