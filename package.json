@@ -1,8 +1,9 @@
 {
-    "name": "Balloons.io"
+    "name": "photungle"
   , "version": "0.0.1"
   , "dependencies": {
-      "express": "2.5.1"
+      "node": "0.6.19"
+    , "express": "2.5.1"
     , "jade": ">= 0.0.1"
     , "socket.io": "0.9.6"
     , "easy-oauth": "0.2.1"
