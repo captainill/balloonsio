@@ -28,7 +28,7 @@ $(function() {
   });
 
   //Socket.io
-  var socket = io.connect('http://localhost');
+  var socket = io.connect('http://photungle.herokuapp.com');
 
   socket.emit('set nickname', {
     room_id: $('#room_id').text(),
