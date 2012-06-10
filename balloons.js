@@ -72,10 +72,6 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.cookieParser());
-  app.use(express.session({
-    secret: config.config.session.secret,
-    store: new RedisStore({client: redis})
-  }));
   app.use(easyoauth(config.config.auth));
   app.use(app.router);
 });
