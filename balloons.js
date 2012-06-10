@@ -24,7 +24,7 @@ if (process.env.REDISTOGO_URL) {
   var rtg   = url.parse(process.env.REDISTOGO_URL);
   redis = redis.createClient(rtg.port, rtg.hostname);
 
-  r.auth(rtg.auth.split(":")[1]);
+  redis.auth(rtg.auth.split(":")[1]);
 } else {
  client = redis.createClient();
 }
