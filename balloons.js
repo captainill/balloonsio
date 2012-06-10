@@ -175,7 +175,7 @@ app.get('/rooms/:id', utils.restrict, function(req, res) {
 var io = sio.listen(app);
 
 io.configure(function() {
-  io.set('store', new sio.RedisStore);
+  io.set('store', new sio.RedisStore({client: redis}));
   io.enable('browser client minification');
   io.enable('browser client gzip');
 });
@@ -301,6 +301,12 @@ io.sockets.on('connection', function (socket) {
       });
     });
   });
+});
+
+io.sockets.on('uncaughtException', function (err) {
+  console.error('uncaughtException:', err.message);
+  console.error(err.stack);
+  process.exit(1);
 });
 
 
