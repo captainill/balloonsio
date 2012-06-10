@@ -72,10 +72,13 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.cookieParser());
+  console.log('---- client2 ', client);
+  /*
   app.use(express.session({
-    secret: config.config.session.secret,
-    store: new RedisStore({client: client})
-  }));
+      secret: config.config.session.secret,
+      store: new RedisStore({client: client})
+    }));*/
+  
   app.use(easyoauth(config.config.auth));
   app.use(app.router);
 });
@@ -175,7 +178,8 @@ app.get('/rooms/:id', utils.restrict, function(req, res) {
 var io = sio.listen(app);
 
 io.configure(function() {
-  io.set('store', new sio.RedisStore({client: client}));
+  console.log('---- client ', client);
+  //io.set('store', new sio.RedisStore());
   io.enable('browser client minification');
   io.enable('browser client gzip');
 });
