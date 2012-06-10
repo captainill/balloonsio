@@ -3,7 +3,7 @@ exports.config = {
 		"twitter": {
 			"consumerkey" : "wovpSUMWpwLB2g9lKafxg",
 			"consumersecret" : "TAMz3AH45WkI0NXjijchU1lYJsoy3SesiCD04xUiQs4",
-			"callback" : "http://127.0.0.1:6789/auth/twitter_callback"
+			"callback" : "http://127.0.0.1:5000/auth/twitter_callback"
 		}
 	},
 	"theme": {
@@ -13,6 +13,6 @@ exports.config = {
 		"secret" : "vivaperon"
 	},
 	"app": {
-		"port": 6789
+		"port": 5000
 	}
 };
