@@ -4,20 +4,30 @@
  */
 
 var express = require('express')
-  , sio = require('socket.io')
-  , easyoauth = require('easy-oauth')
-  , redis = require('redis')
-  , RedisStore = require('connect-redis')(express)
-  , utils = require('./utils')
-  , config = require('./config')
-  , fs = require('fs');
+    sio = require('socket.io'),
+    easyoauth = require('easy-oauth'),
+    redis = require('redis'),
+    RedisStore = require('connect-redis')(express),
+    utils = require('./utils'),
+    config = require('./config'),
+    fs = require('fs'),
+    url = require("url");
 
 
 /*
  * Instantiate redis
  */
 
-var client = redis.createClient();
+var client;
+
+if (process.env.REDISTOGO_URL) {
+  var rtg   = url.parse(process.env.REDISTOGO_URL);
+  redis = redis.createClient(rtg.port, rtg.hostname);
+
+  r.auth(rtg.auth.split(":")[1]);
+} else {
+ client = redis.createClient();
+}
 
 /*
  * Clean all forgoten sockets in Redis.io
