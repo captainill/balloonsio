@@ -18,20 +18,22 @@ var express = require('express')
  * Instantiate redis
  */
 
-var client;
+var client,
+    store;
 
 console.log("process.env.REDISTOGO_URL= ", process.env.REDISTOGO_URL);
 if (process.env.REDISTOGO_URL) {
   
   var rtg = require("url").parse(process.env.REDISTOGO_URL);
-  console.log('port info = ', rtg.port, rtg.hostname);
-  
   client = redis.createClient(rtg.port, rtg.hostname);
   client.auth(rtg.auth.split(":")[1]);
   
-  console.log(rtg.auth.split(":")[1]);
+  store = redis.createClient(rtg.port, rtg.hostname);
+  store.auth(rtg.auth.split(":")[1]);
+  
 } else {
  client = redis.createClient();
+ store = redis.createClient();
 }
 
 /*
@@ -75,10 +77,9 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.cookieParser());
-  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
   app.use(express.session({
     secret: config.config.session.secret,
-    store: new RedisStore({host:rtg.hostname, port:rtg.port})
+    store: new RedisStore({client:store})
   }));
   app.use(easyoauth(config.config.auth));
   app.use(app.router);
@@ -179,8 +180,7 @@ app.get('/rooms/:id', utils.restrict, function(req, res) {
 var io = sio.listen(app);
 
 io.configure(function() {
-  var rtg = require("url").parse(process.env.REDISTOGO_URL);
-  io.set('store', new sio.RedisStore({host:rtg.hostname, port:rtg.port}));
+  //io.set('store', new sio.RedisStore({redisClient:client}));
   io.enable('browser client minification');
   io.enable('browser client gzip');
 });
