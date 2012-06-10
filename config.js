@@ -1,8 +1,8 @@
 exports.config = {
 	auth: {
 		twitter: {
-			consumerkey : "wovpSUMWpwLB2g9lKafxg",
-			consumersecret : "TAMz3AH45WkI0NXjijchU1lYJsoy3SesiCD04xUiQs4",
+			consumerkey : process.env.BALLOONS_TWITTER_KEY,
+			consumersecret : process.env.BALLOONS_TWITTER_SECRET,
 			callback : process.env.TWITTER_CALLBACK ||  "http://127.0.0.1:5000/auth/twitter_callback"
 		}
 	},
@@ -10,7 +10,7 @@ exports.config = {
 		name : "default"
 	},
 	session : {
-		secret : "vivaperon"
+		secret : process.env.BALLOONS_SESSION_SECRET
 	},
 	app: {
 		port: 5000
