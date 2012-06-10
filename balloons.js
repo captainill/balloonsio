@@ -170,11 +170,13 @@ app.get('/rooms/:id', utils.restrict, function(req, res) {
 
 var io = sio.listen(app);
 
+/*
 io.configure(function() {
   io.set('store', new sio.RedisStore);
   io.enable('browser client minification');
   io.enable('browser client gzip');
-});
+});*/
+
 
 
 io.sockets.on('connection', function (socket) {
